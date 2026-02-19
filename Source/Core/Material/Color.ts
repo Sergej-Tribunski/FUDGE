@@ -192,6 +192,10 @@ namespace FudgeCore {
       return _out.set(_vector.r * _scaling, _vector.g * _scaling, _vector.b * _scaling, _vector.a * _scaling);
     }
 
+    private static valueToHex(_value: number): string {
+      return Math.round(_value * 255).toString(16).padStart(2, "0");
+    }
+
     static #f(_n: number, _hue: number, _saturation: number, _light: number): number {
       let k: number = (_n + _hue / 30) % 12;
       let a: number = _saturation * Math.min(_light, 1 - _light);
@@ -411,7 +415,7 @@ namespace FudgeCore {
      * Returns the hex string representation of this color. // TODO: maybe this should return a number instead of a string?
      */
     public toHex(): string {
-      return `${(this.r * 255).toString(16).padStart(2, "0")}${(this.g * 255).toString(16).padStart(2, "0")}${(this.b * 255).toString(16).padStart(2, "0")}${(this.a * 255).toString(16).padStart(2, "0")}`;
+      return `${Color.valueToHex(this.r)}${Color.valueToHex(this.g)}${Color.valueToHex(this.b)}${Color.valueToHex(this.a)}`;
     }
 
     /**
@@ -450,6 +454,9 @@ namespace FudgeCore {
 
     protected reduceMutator(_mutator: Mutator): void {/** */ }
     //#endregion
-    //#endregion
+
+
   }
+
+
 }
