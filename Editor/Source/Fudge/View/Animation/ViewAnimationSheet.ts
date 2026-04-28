@@ -823,7 +823,8 @@ namespace Fudge {
       this.mtxWorldToScreen.reset();
       this.mtxWorldToScreen.scaleX(ViewAnimationSheet.PIXEL_PER_MILLISECOND); // apply scaling
       this.mtxWorldToScreen.scaleX((this.canvas.width - 2 * ViewAnimationSheet.SCALE_WIDTH) / ((this.animation?.totalTime || ViewAnimationSheet.STANDARD_ANIMATION_LENGTH)));
-      this.mtxWorldToScreen.translateX(ViewAnimationSheet.SCALE_WIDTH);
+      this.mtxWorldToScreen.translation.x = ViewAnimationSheet.SCALE_WIDTH;
+      this.mtxWorldToScreen.translation = this.mtxWorldToScreen.translation;
       if (this.mode == SHEET_MODE.CURVES) {
         this.mtxWorldToScreen.scaleY(-1); // flip y
         this.mtxWorldToScreen.scaleY(ViewAnimationSheet.PIXEL_PER_VALUE); // apply scaling
@@ -837,11 +838,14 @@ namespace Fudge {
           let viewHeight: number = (this.canvas.height - ViewAnimationSheet.TIMELINE_HEIGHT - ViewAnimationSheet.EVENTS_HEIGHT); // in px
           if (min != max)
             this.mtxWorldToScreen.scaleY(viewHeight / (((max - min) * ViewAnimationSheet.PIXEL_PER_VALUE) * 1.2));
-          this.mtxWorldToScreen.translateY(viewHeight - min * this.mtxWorldToScreen.scaling.y);
+
+          this.mtxWorldToScreen.translation.y = viewHeight - min * this.mtxWorldToScreen.scaling.y;
         }
       } else {
-        this.mtxWorldToScreen.translateY(ViewAnimationSheet.TIMELINE_HEIGHT + ViewAnimationSheet.EVENTS_HEIGHT + ViewAnimationSheet.KEY_SIZE * 2);
+        this.mtxWorldToScreen.translation.y = ViewAnimationSheet.TIMELINE_HEIGHT + ViewAnimationSheet.EVENTS_HEIGHT + ViewAnimationSheet.KEY_SIZE * 2;
       }
+
+      this.mtxWorldToScreen.translation = this.mtxWorldToScreen.translation;
     }
 
     private screenToWorldPoint(_x: number, _y: number): ƒ.Vector2 {
