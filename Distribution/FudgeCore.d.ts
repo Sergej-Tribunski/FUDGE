@@ -4735,6 +4735,7 @@ declare namespace FudgeCore {
          * @param _out Optional color to store the result in.
          */
         static SCALE(_vector: Color, _scaling: number, _out?: Color): Color;
+        private static valueToHex;
         get isArrayConvertible(): true;
         /**
          * Creates and returns a clone of this color.

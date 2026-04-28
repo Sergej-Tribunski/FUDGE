@@ -40,6 +40,7 @@ var Script;
     document.addEventListener("interactiveViewportStarted", start);
     function start(_event) {
         viewport = _event.detail;
+        viewport.physicsDebugMode = FudgeCore.PHYSICS_DEBUGMODE.JOINTS_AND_COLLIDER;
         ƒ.Loop.addEventListener("loopFrame" /* ƒ.EVENT.LOOP_FRAME */, update);
         ƒ.Loop.start(); // start the game loop to continously draw the viewport and update the audiosystem
     }
