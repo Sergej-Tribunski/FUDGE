@@ -262,8 +262,8 @@ namespace FudgeCore {
 
       this.#motorFirst = new OIMO.RotationalLimitMotor().setLimits(this.#minRotorFirst * Calc.deg2rad, this.#maxRotorFirst * Calc.deg2rad);
       this.#motorFirst.setMotor(this.#rotorSpeedFirst, this.#rotorTorqueFirst);
-      this.#motorSecond = new OIMO.RotationalLimitMotor().setLimits(this.#minRotorFirst * Calc.deg2rad, this.#maxRotorFirst * Calc.deg2rad);
-      this.#motorSecond.setMotor(this.#rotorSpeedFirst, this.#rotorTorqueFirst);
+      this.#motorSecond = new OIMO.RotationalLimitMotor().setLimits(this.#minRotorSecond * Calc.deg2rad, this.#maxRotorSecond * Calc.deg2rad);
+      this.#motorSecond.setMotor(this.#rotorSpeedSecond, this.#rotorTorqueSecond);
 
       this.config = new OIMO.UniversalJointConfig();
       super.constructJoint(this.#axisFirst, this.#axisSecond);
