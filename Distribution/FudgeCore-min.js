@@ -9144,6 +9144,9 @@ var FudgeCore;
         static SCALE(_vector, _scaling, _out = FudgeCore.Recycler.reuse(Color)) {
             return _out.set(_vector.r * _scaling, _vector.g * _scaling, _vector.b * _scaling, _vector.a * _scaling);
         }
+        static valueToHex(_value) {
+            return Math.round(_value * 255).toString(16).padStart(2, "0");
+        }
         static #f(_n, _hue, _saturation, _light) {
             let k = (_n + _hue / 30) % 12;
             let a = _saturation * Math.min(_light, 1 - _light);
@@ -9272,7 +9275,7 @@ var FudgeCore;
             return `(r: ${this.r.toFixed(3)}, g: ${this.g.toFixed(3)}, b: ${this.b.toFixed(3)}, a: ${this.a.toFixed(3)})`;
         }
         toHex() {
-            return `${(this.r * 255).toString(16).padStart(2, "0")}${(this.g * 255).toString(16).padStart(2, "0")}${(this.b * 255).toString(16).padStart(2, "0")}${(this.a * 255).toString(16).padStart(2, "0")}`;
+            return `${Color.valueToHex(this.r)}${Color.valueToHex(this.g)}${Color.valueToHex(this.b)}${Color.valueToHex(this.a)}`;
         }
         toCSS() {
             return `rgba(${Math.round(this.r * 255)}, ${Math.round(this.g * 255)}, ${Math.round(this.b * 255)}, ${this.a})`;
@@ -14803,8 +14806,8 @@ var FudgeCore;
             this.#axisSpringDamperSecond = new OIMO.SpringDamper().setSpring(this.#springFrequencySecond, this.#springDampingSecond);
             this.#motorFirst = new OIMO.RotationalLimitMotor().setLimits(this.#minRotorFirst * FudgeCore.Calc.deg2rad, this.#maxRotorFirst * FudgeCore.Calc.deg2rad);
             this.#motorFirst.setMotor(this.#rotorSpeedFirst, this.#rotorTorqueFirst);
-            this.#motorSecond = new OIMO.RotationalLimitMotor().setLimits(this.#minRotorFirst * FudgeCore.Calc.deg2rad, this.#maxRotorFirst * FudgeCore.Calc.deg2rad);
-            this.#motorSecond.setMotor(this.#rotorSpeedFirst, this.#rotorTorqueFirst);
+            this.#motorSecond = new OIMO.RotationalLimitMotor().setLimits(this.#minRotorSecond * FudgeCore.Calc.deg2rad, this.#maxRotorSecond * FudgeCore.Calc.deg2rad);
+            this.#motorSecond.setMotor(this.#rotorSpeedSecond, this.#rotorTorqueSecond);
             this.config = new OIMO.UniversalJointConfig();
             super.constructJoint(this.#axisFirst, this.#axisSecond);
             this.config.limitMotor1 = this.#motorFirst;
